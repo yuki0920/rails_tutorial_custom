@@ -16,6 +16,8 @@ class User < ApplicationRecord
   private
 
   def password_check
+    return if password.blank?
+
     if password.split('').uniq.count == 1
       errors.add(:password, "Can't be all the same")
     end
