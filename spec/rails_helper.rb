@@ -68,4 +68,5 @@ RSpec.configure do |config|
   # config.include TestHelper
   config.include ApplicationHelper
   config.include TestHelper
+  config.include FactoryBot::Syntax::Methods
 end

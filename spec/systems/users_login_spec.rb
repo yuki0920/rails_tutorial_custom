@@ -3,13 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'UsersLogin', type: :system do
-  let!(:user) do
-    User.create!(
-      name: 'Michael Example',
-      email: 'michael@example.com',
-      password: 'password'
-    )
-  end
+  let!(:user) { create :user }
 
   it 'login with valid email/invalid password' do
     visit login_path

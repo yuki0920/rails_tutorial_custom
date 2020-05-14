@@ -53,6 +53,7 @@ group :test do
   gem 'rspec-rails'
   gem 'webdrivers'
   gem 'rack_session_access'
+  gem 'factory_bot_rails'
 end
 
 group :production do
