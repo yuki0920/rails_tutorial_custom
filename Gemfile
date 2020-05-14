@@ -52,6 +52,7 @@ group :test do
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'rspec-rails'
   gem 'webdrivers'
+  gem 'rack_session_access'
 end
 
 group :production do

@@ -25,5 +25,7 @@ RSpec.describe 'UserSignup', type: :system do
       click_button 'Create my account'
     end.to change(User, :count).by(1)
     expect(page).to have_css '.alert-success'
+    expect(page).to have_link 'Log out'
+    expect(is_logged_in?).to be_truthy
   end
 end
