@@ -75,4 +75,8 @@ RSpec.describe User, type: :model do
     expect(user.valid?).to be_falsy
     expect(user.errors.messages[:password]).to include("Can't be all the same")
   end
+
+  it 'authenticated? should return false for a user with nil digest' do
+    expect(user.authenticated?('')).to be_falsy
+  end
 end
