@@ -62,3 +62,6 @@ end
 
 gem 'haml-rails'
 gem 'bootstrap-sass'
+gem 'faker'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
