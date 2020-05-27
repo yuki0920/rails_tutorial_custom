@@ -19,5 +19,16 @@ module SampleApp
     # the framework and any gems in your application.
 
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+    config.generators do |g|
+      g.assets false
+      g.helper false
+      g.test_framework :rspec,
+                       view_specs: false,
+                       helper_specs: false,
+                       routing_specs: false,
+                       controller_specs: false,
+                       fixtures: true
+      g.fixture_replacement :factory_bot, dir: 'spec/factories'
+    end
   end
 end
