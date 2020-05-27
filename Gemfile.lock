@@ -281,6 +281,7 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   puma
+  rack-test (= 1.1.0)
   rack_session_access
   rails (~> 6.0.3)
   rspec-rails
