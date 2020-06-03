@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'UsersIndex', type: :system do
@@ -6,7 +8,7 @@ RSpec.describe 'UsersIndex', type: :system do
 
   before do
     30.times do |n|
-      User.create!(name: "User #{n}", email: "user-#{n}@example.com", password: 'password')
+      User.create!(name: "User #{n}", email: "user-#{n}@example.com", password: 'password', activated: true)
     end
   end
 
