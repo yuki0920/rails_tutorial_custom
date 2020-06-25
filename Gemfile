@@ -61,8 +61,11 @@ group :production do
   gem 'pg'
 end
 
+gem 'active_storage_validations'
 gem 'haml-rails'
 gem 'bootstrap-sass'
 gem 'faker'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+gem 'image_processing'
+gem 'mini_magick'
