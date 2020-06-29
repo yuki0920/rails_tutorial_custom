@@ -11,6 +11,16 @@ RSpec.describe User, type: :model do
       password_confirmation: 'password'
     )
   end
+  let(:michael) { create(:user) }
+  let(:archer) { create(:user, :archer) }
+  let(:lana) { create(:user, :lana) }
+
+  before do
+    create(:relationship, follower_id: michael.id, followed_id: lana.id)
+    create(:micropost, user: michael)
+    create(:micropost, user: archer)
+    create(:micropost, user: lana)
+  end
 
   it 'shold be valid' do
     expect(user.valid?).to be_truthy
@@ -78,5 +88,17 @@ RSpec.describe User, type: :model do
 
   it 'authenticated? should return false for a user with nil digest' do
     expect(user.authenticated?(:remember, '')).to be_falsy
+  end
+
+  it 'feed should have the right posts' do
+    lana.microposts.each do |post_following|
+      expect(michael.feed.include?(post_following)).to be_truthy
+    end
+    michael.microposts.each do |post_self|
+      expect(michael.feed.include?(post_self)).to be_truthy
+    end
+    archer.microposts.each do |post_unfollowed|
+      expect(michael.feed.include?(post_unfollowed)).to be_falsy
+    end
   end
 end
