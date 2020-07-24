@@ -8,18 +8,20 @@ RSpec.describe User, type: :model do
       name: 'Example User',
       email: 'user@example.com',
       password: 'password',
-      password_confirmation: 'password'
+      password_confirmation: 'password',
     )
   end
-  let(:michael) { create(:user) }
+  let(:michael) { create(:user, nickname: 'michael') }
   let(:archer) { create(:user, :archer) }
   let(:lana) { create(:user, :lana) }
+  let(:malory) { create(:user, :malory) }
 
   before do
     create(:relationship, follower_id: michael.id, followed_id: lana.id)
     create(:micropost, user: michael)
     create(:micropost, user: archer)
     create(:micropost, user: lana)
+    create(:micropost, user: malory, content: '@michael')
   end
 
   it 'shold be valid' do
@@ -99,6 +101,9 @@ RSpec.describe User, type: :model do
     end
     archer.microposts.each do |post_unfollowed|
       expect(michael.feed.include?(post_unfollowed)).to be_falsy
+    end
+    malory.microposts.each do |post_in_reply_to|
+      expect(michael.feed.include?(post_in_reply_to)).to be_truthy
     end
   end
 end

@@ -8,6 +8,7 @@ FactoryBot.define do
     password_confirmation { 'password' }
     activated { true }
     activated_at { Time.zone.now }
+    nickname { 'example' }
 
     trait :admin do
       admin { true }
@@ -16,16 +17,19 @@ FactoryBot.define do
     trait :archer do
       name { 'Sterling Archer' }
       email { 'duchess@example.gov' }
+      nickname { 'archer' }
     end
 
     trait :lana do
       name { 'Lana Kane' }
       email { 'hands@example.gov' }
+      nickname { 'lana' }
     end
 
     trait :malory do
       name { 'Malory Archer' }
       email { 'boss@example.gov' }
+      nickname { 'malory' }
     end
   end
 end
