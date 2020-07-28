@@ -1,0 +1,6 @@
+- provide(:title, 'Message Room')
+%h1
+  #{@room.users[0].at_nickname} #{@room.users[1].at_nickname}
+#messages
+  = render partial: 'message', collection: @room.messages
+= render 'message_form', locals: {message: @message, room: @room}

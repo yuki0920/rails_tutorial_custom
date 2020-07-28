@@ -8,6 +8,10 @@ class User < ApplicationRecord
   has_many :passive_relationships, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
+  has_many :room_users, dependent: :destroy, foreign_key: 'user_id'
+  has_many :rooms, through: :room_users
+  has_many :messages, dependent: :destroy
+
 
   before_save :downcase_email
   before_create :create_activation_digest
@@ -83,6 +87,28 @@ class User < ApplicationRecord
 
   def following?(other)
     following.include?(other)
+  end
+
+  def at_nickname
+    "@#{nickname}"
+  end
+
+  def self.at_nickname_user(nickname)
+    return false unless nickname = nickname.match(/(?<=@)[\w-]+/)
+
+    return false unless user = User.find_by(nickname: nickname[0])
+
+    user
+  end
+
+  def mutual_followers?(other_user)
+    following?(other_user) && other_user.following?(self)
+  end
+
+  def invite_room_exist?(other_user)
+    return false unless room = self.rooms.each {|room| room.users.find(other_user.id) }.first
+
+    room
   end
 
   private

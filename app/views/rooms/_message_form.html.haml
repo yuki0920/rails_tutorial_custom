@@ -1,0 +1,4 @@
+%form
+  %p
+    = text_field_tag :message, params[:message], data: {behavior: "room_speaker"}, placeholder: 'Write a message'
+    = hidden_field_tag :room, @room.id

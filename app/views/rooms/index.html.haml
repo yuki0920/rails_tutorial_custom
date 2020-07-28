@@ -1,0 +1,10 @@
+- provide(:title, 'Message Rooms')
+
+%h1 Message Rooms
+= form_with url: rooms_path, method: 'post', data: {remote: false} do
+  %p
+    = text_field_tag :nickname, params[:nickname], placeholder: '@nickname'
+    = submit_tag 'Follow user invite!'
+%ul.rooms
+  = render partial: @rooms
+= will_paginate
