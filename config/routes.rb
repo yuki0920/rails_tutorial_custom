@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+      resources :users
+    end
+  end
+
   get 'password_resets/new'
   get 'password_resets/edit'
   get 'sessions/new'
