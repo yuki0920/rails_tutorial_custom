@@ -1,4 +1,7 @@
 class Api::V1::UsersController < ApplicationController
+  before_action :set_user, only: %i[show edit update destroy]
+  http_basic_authenticate_with name: 'user', password: 'password'
+
   def index
     @users = User.all.map { |user| { id: user.id, name: user.name, email: user.email} }
 
@@ -6,8 +9,6 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-
     render json: @user
   end
 
@@ -24,16 +25,12 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
-
     @user.destroy
 
     head :no_content
   end
 
   def update
-    @user = User.find(params[:id])
-
     if @user.update(user_paramas)
       render formats: :json, status: :ok, notice: 'Successfully updated.'
     else
@@ -42,6 +39,12 @@ class Api::V1::UsersController < ApplicationController
   end
 
   private
+
+  def set_user
+    @user = User.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    head :not_found
+  end
 
   def user_params
     params.permit(:name, :email, :password, :password_confirmation)
